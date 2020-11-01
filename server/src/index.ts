@@ -7,13 +7,13 @@ import path from "path";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import { createConnection } from "typeorm";
-import { COOKIE_NAME, __prod__ } from "./constants";
+import { COOKIE_NAME, SESSION_SECRET, __prod__ } from "./constants";
 import { HelloResolver } from "./resolvers/hello";
 
 const main = async (PORT: number) => {
   const conn = await createConnection({
     type: "postgres",
-    database: "swimmingly",
+    database: process.env.DATABASE_NAME,
     username: process.env.DATABASE_USERNAME,
     password: process.env.DATABASE_PASSWORD,
     logging: true,
@@ -21,6 +21,7 @@ const main = async (PORT: number) => {
     migrations: [path.join(__dirname, "./migrations/*")],
     entities: [],
   });
+
   await conn.runMigrations();
 
   const app = express();
@@ -42,7 +43,7 @@ const main = async (PORT: number) => {
         secure: __prod__,
       },
       saveUninitialized: false,
-      secret: "fijerifjerijeoijfeoijfoie",
+      secret: SESSION_SECRET,
       resave: false,
     })
   );
