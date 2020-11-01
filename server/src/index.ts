@@ -8,6 +8,8 @@ import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import { createConnection } from "typeorm";
 import { COOKIE_NAME, SESSION_SECRET, __prod__ } from "./constants";
+import { User } from "./entities/User";
+import { Workout } from "./entities/Workout";
 import { HelloResolver } from "./resolvers/hello";
 
 const main = async (PORT: number) => {
@@ -19,7 +21,7 @@ const main = async (PORT: number) => {
     logging: true,
     synchronize: true,
     migrations: [path.join(__dirname, "./migrations/*")],
-    entities: [],
+    entities: [User, Workout],
   });
 
   await conn.runMigrations();
