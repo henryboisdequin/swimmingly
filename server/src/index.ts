@@ -11,6 +11,8 @@ import { COOKIE_NAME, SESSION_SECRET, __prod__ } from "./constants";
 import { User } from "./entities/User";
 import { Workout } from "./entities/Workout";
 import { HelloResolver } from "./resolvers/hello";
+import { UserResolver } from "./resolvers/user";
+import { WorkoutResolver } from "./resolvers/workout";
 
 const main = async (PORT: number) => {
   const conn = await createConnection({
@@ -52,7 +54,7 @@ const main = async (PORT: number) => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [HelloResolver],
+      resolvers: [HelloResolver, UserResolver, WorkoutResolver],
       validate: false,
     }),
   });
