@@ -57,6 +57,10 @@ const main = async (PORT: number) => {
       resolvers: [HelloResolver, UserResolver, WorkoutResolver],
       validate: false,
     }),
+    context: ({ req, res }) => ({
+      req,
+      res,
+    }),
   });
 
   apolloServer.applyMiddleware({ app });
