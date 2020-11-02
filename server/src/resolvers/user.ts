@@ -63,5 +63,46 @@ export class UserResolver {
   }
 
   @Mutation(() => UserResponse)
-  async login() {}
+  async login(
+    @Arg("options") options: UsernamePasswordInput,
+    @Ctx() { req }: MyContext
+  ) {
+    // get the user
+    const user = await User.findOne({
+      where: { username: options.username, email: options.email },
+    });
+
+    // return if username isn't correct (guard clause)
+    if (!user) {
+      return {
+        errors: [
+          {
+            field: "username",
+            message: "Could not find a user with that username.",
+          },
+        ],
+      };
+    }
+
+    // verify the password
+    const valid = await argon2.verify(user.password, options.password);
+
+    if (!valid) {
+      return {
+        errors: [
+          {
+            field: "password",
+            message: "Incorrect password.",
+          },
+        ],
+      };
+    }
+
+    // set the session to the user we got
+    req.session.userId = user.id;
+
+    return {
+      user,
+    };
+  }
 }
