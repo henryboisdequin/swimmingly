@@ -17,9 +17,9 @@ import { WorkoutResolver } from "./resolvers/workout";
 const main = async (PORT: number) => {
   const conn = await createConnection({
     type: "postgres",
-    database: process.env.DATABASE_NAME,
-    username: process.env.DATABASE_USERNAME,
-    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_NAME as string,
+    username: process.env.DATABASE_USERNAME as string,
+    password: process.env.DATABASE_PASSWORD as string,
     logging: true,
     synchronize: true,
     migrations: [path.join(__dirname, "./migrations/*")],

@@ -1,4 +1,4 @@
-export const __prod__ = process.env.NODE_ENV === "production";
-export const COOKIE_NAME = "qid";
-export const FORGET_PASSWORD_PREFIX = "forget-password:";
-export const SESSION_SECRET = "fijerifjerijeoijfeoijfoie";
+export const __prod__: boolean = process.env.NODE_ENV === "production";
+export const COOKIE_NAME: string = "qid";
+export const FORGET_PASSWORD_PREFIX: string = "forget-password:";
+export const SESSION_SECRET: string = "fijerifjerijeoijfeoijfoie";
