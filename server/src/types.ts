@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { Redis } from "ioredis";
 import { InputType, Field, ObjectType } from "type-graphql";
 import { User } from "./entities/User";
 
@@ -34,4 +35,5 @@ export class UserResponse {
 export type MyContext = {
   req: Request & { session: Express.Session };
   res: Response;
+  redis: Redis;
 };

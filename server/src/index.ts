@@ -60,6 +60,7 @@ const main = async (PORT: number) => {
     context: ({ req, res }) => ({
       req,
       res,
+      redis,
     }),
   });
 
