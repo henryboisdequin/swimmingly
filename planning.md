@@ -10,3 +10,26 @@ Features:
 - Put notes on workout
 - Put URL of workout, the workout will show on the screen
 - Make workouts public (on the explore public workouts page)
+
+Tech Stack:
+
+- Frontend:
+  - Next.js
+  - React.js
+  - React.js Hooks
+  - React Hook Form
+  - Chakra-UI
+  - Apollo
+  - Code Gen
+  - Typescript
+- Backend:
+  - PostgreSQL
+  - GraphQL
+  - TypeGraphQL
+  - Node.js
+  - TypeORM
+  - Redis
+  - Typescript
+  - Apollo Server
+  - Express
+  - Nodemailer
