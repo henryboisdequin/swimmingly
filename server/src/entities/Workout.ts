@@ -29,6 +29,10 @@ export class Workout extends BaseEntity {
   @Column()
   distance!: string;
 
+  @Field(() => Boolean)
+  @Column()
+  private!: boolean;
+
   @Field(() => String)
   @Column()
   time!: Date;

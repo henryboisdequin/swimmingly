@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Redis } from "ioredis";
-import { InputType, Field, ObjectType } from "type-graphql";
+import { Field, InputType, ObjectType } from "type-graphql";
 import { User } from "./entities/User";
 
 @InputType()
