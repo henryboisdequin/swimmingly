@@ -16,8 +16,10 @@ export class UserResolver {
     @Arg("newPassword") newPassword: string,
     @Ctx() { req, redis }: MyContext
   ): Promise<UserResponse> {
+    // strong password regex
     const strongPassword = /^[A-Za-z]\w{7,14}$/;
 
+    // if the new password doesn't meet requirements, return error
     if (!newPassword.match(strongPassword)) {
       return {
         errors: [
@@ -29,9 +31,11 @@ export class UserResolver {
       };
     }
 
+    // get key from redis
     const key = FORGET_PASSWORD_PREFIX + token;
     const userId = await redis.get(key);
 
+    // return if token doesn't exist or is expired
     if (!userId) {
       return {
         errors: [
@@ -43,9 +47,11 @@ export class UserResolver {
       };
     }
 
+    // find the user with the user id
     const userIdNum = parseInt(userId);
     const user = await User.findOne(userIdNum);
 
+    // if no user return
     if (!user) {
       return {
         errors: [
@@ -57,6 +63,7 @@ export class UserResolver {
       };
     }
 
+    // update the user to have their new password
     await User.update(
       { id: userIdNum },
       {
@@ -64,7 +71,7 @@ export class UserResolver {
       }
     );
 
-    // change password with that link once
+    // change password with that link once by deleting the key stored in redis
     await redis.del(key);
 
     // login user
@@ -77,16 +84,18 @@ export class UserResolver {
   async forgotPassword(
     @Arg("email") email: string,
     @Ctx() { redis }: MyContext
-  ) {
+  ): Promise<boolean> {
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
       // user not in db
-      return true;
+      return false;
     }
 
+    // create a token
     const token = v4();
 
+    // set the token in the redis db
     await redis.set(
       FORGET_PASSWORD_PREFIX + token,
       user.id,
@@ -94,6 +103,7 @@ export class UserResolver {
       1000 * 60 * 60 * 24 * 3
     );
 
+    // send email to user
     await sendEmail(
       email,
       `
@@ -119,6 +129,7 @@ Henry Boisdequin From <a href="http://localhost:3000/">Swimmingly</a>
       return null;
     }
 
+    // return the user with that id
     return User.findOne(req.session.userId);
   }
 
@@ -127,15 +138,20 @@ Henry Boisdequin From <a href="http://localhost:3000/">Swimmingly</a>
     @Arg("options") options: UsernamePasswordInput,
     @Ctx() { req }: MyContext
   ) {
+    // validate the register
     const errors = validateRegister(options);
+
+    // if there are errors, return
     if (errors) {
       return { errors };
     }
 
+    // hash the password
     const hashedPassword = await argon2.hash(options.password);
     let user;
 
     try {
+      // insert the user into the db
       const result = await getConnection()
         .createQueryBuilder()
         .insert()
@@ -147,6 +163,7 @@ Henry Boisdequin From <a href="http://localhost:3000/">Swimmingly</a>
         })
         .returning("*")
         .execute();
+
       user = result.raw[0];
     } catch (err) {
       if (err.code === "23505") {
@@ -164,6 +181,7 @@ Henry Boisdequin From <a href="http://localhost:3000/">Swimmingly</a>
 
     // set a 🍪 on the user, keep them logged in
     req.session.userId = user.id;
+
     return { user };
   }
 
@@ -213,14 +231,18 @@ Henry Boisdequin From <a href="http://localhost:3000/">Swimmingly</a>
 
   @Mutation(() => Boolean)
   logout(@Ctx() { req, res }: MyContext) {
+    // logout the user
     return new Promise((resolve) =>
       req.session.destroy((err) => {
+        // clear the cookie
         res.clearCookie(COOKIE_NAME);
         if (err) {
           console.error(err);
+          // resolved - false
           resolve(false);
           return;
         }
+        // resolved - true
         resolve(true);
       })
     );
