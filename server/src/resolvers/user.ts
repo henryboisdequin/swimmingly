@@ -42,6 +42,7 @@ export class UserResolver {
         ],
       };
     }
+
     const userIdNum = parseInt(userId);
     const user = await User.findOne(userIdNum);
 
@@ -78,6 +79,7 @@ export class UserResolver {
     @Ctx() { redis }: MyContext
   ) {
     const user = await User.findOne({ where: { email } });
+
     if (!user) {
       // user not in db
       return true;
@@ -90,20 +92,23 @@ export class UserResolver {
       user.id,
       "ex",
       1000 * 60 * 60 * 24 * 3
-    ); // 3 days to reset password
+    );
+
     await sendEmail(
       email,
       `
-    Dear User,
-    \n
-    I hope you are doing well.
-    \n
-    Click this link to reset your password: <a href="http://localhost:3000/change-password/${token}">link</a>.
-    \n
-    Warmly,
-    Henry Boisdequin From <a href="http://localhost:3000/">Swimmingly</a>
-        `
+Dear User,
+\n
+I hope you are doing well.
+\n
+Click this link to reset your password: <a href="http://localhost:3000/change-password/${token}">link</a>.
+\n
+Best, 
+Henry Boisdequin From <a href="http://localhost:3000/">Swimmingly</a>
+    `,
+      587
     );
+
     return true;
   }
 
