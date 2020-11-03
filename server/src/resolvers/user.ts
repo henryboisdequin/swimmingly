@@ -1,4 +1,5 @@
 import argon2 from "argon2";
+import { sendEmail } from "../utils/sendEmail";
 import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import { getConnection } from "typeorm";
 import { v4 } from "uuid";
@@ -90,20 +91,19 @@ export class UserResolver {
       "ex",
       1000 * 60 * 60 * 24 * 3
     ); // 3 days to reset password
-    // TODO look at stackoverflow
-    //     await sendEmail(
-    //       email,
-    //       `
-    // Dear User,
-    // \n
-    // I hope you are doing well.
-    // \n
-    // Click this link to reset your password: <a href="http://localhost:3000/change-password/${token}">link</a>.
-    // \n
-    // Warmly,
-    // Henry Boisdequin From <a href="http://localhost:3000/">Swimmingly</a>
-    //     `
-    //     );
+    await sendEmail(
+      email,
+      `
+    Dear User,
+    \n
+    I hope you are doing well.
+    \n
+    Click this link to reset your password: <a href="http://localhost:3000/change-password/${token}">link</a>.
+    \n
+    Warmly,
+    Henry Boisdequin From <a href="http://localhost:3000/">Swimmingly</a>
+        `
+    );
     return true;
   }
 

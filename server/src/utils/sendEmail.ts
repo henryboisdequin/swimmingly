@@ -12,7 +12,7 @@ export async function sendEmail(to: string, html: string) {
   });
 
   let info = await transporter.sendMail({
-    from: '"Henry Boisdequin" <henryboisdequin@swimmingly.com>', // sender address
+    from: `"Henry Boisdequin" <${process.env.EMAIL}>`, // sender address
     to: to, // list of receivers
     subject: "Change Password", // Subject line
     html: html, // html
