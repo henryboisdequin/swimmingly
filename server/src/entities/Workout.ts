@@ -13,6 +13,7 @@ import { User } from "./User";
 @ObjectType()
 @Entity()
 export class Workout extends BaseEntity {
+  // a workout entity
   @Field()
   @PrimaryGeneratedColumn()
   id!: number;

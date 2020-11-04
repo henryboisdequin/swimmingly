@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
 
 export async function sendEmail(to: string, html: string, port: number) {
+  // create the transport
   let transporter = nodemailer.createTransport({
     host: "smtp.ethereal.email",
     port: port,
@@ -11,7 +12,7 @@ export async function sendEmail(to: string, html: string, port: number) {
     },
   });
 
-  // send mail with defined transport object
+  // send the email (only for testing)
   let info = await transporter.sendMail({
     from: '"Henry Boisdequin" <henryboisdequin@swimmingly.com>', // sender address
     to: to, // list of receivers
@@ -19,6 +20,7 @@ export async function sendEmail(to: string, html: string, port: number) {
     html: html, // html
   });
 
+  // log the result
   console.log(`Message sent: ${info.messageId}`);
   console.log(`Preview URL: ${nodemailer.getTestMessageUrl(info)}`);
 }

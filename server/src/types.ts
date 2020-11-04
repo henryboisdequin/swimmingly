@@ -5,6 +5,7 @@ import { User } from "./entities/User";
 
 @InputType()
 export class UsernamePasswordInput {
+  // fields and types in username password input
   @Field()
   username: string;
 
@@ -17,6 +18,7 @@ export class UsernamePasswordInput {
 
 @ObjectType()
 class FieldError {
+  // fields and types of a field error
   @Field()
   field: string;
   @Field()
@@ -25,6 +27,7 @@ class FieldError {
 
 @ObjectType()
 export class UserResponse {
+  // field and types of a user response
   @Field(() => [FieldError], { nullable: true })
   errors?: FieldError[];
 
@@ -33,6 +36,7 @@ export class UserResponse {
 }
 
 export type MyContext = {
+  // type of the context
   req: Request & { session: Express.Session };
   res: Response;
   redis: Redis;

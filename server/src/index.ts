@@ -15,6 +15,7 @@ import { UserResolver } from "./resolvers/user";
 import { WorkoutResolver } from "./resolvers/workout";
 
 const main = async (PORT: number) => {
+  // create connection to postgres db
   const conn = await createConnection({
     type: "postgres",
     database: process.env.DATABASE_NAME as string,
@@ -26,13 +27,15 @@ const main = async (PORT: number) => {
     entities: [User, Workout],
   });
 
+  // run the migrations
   await conn.runMigrations();
 
+  // init
   const app = express();
-
   const RedisStore = connectRedis(session);
   const redis = new Redis();
 
+  // set app settings
   app.use(
     session({
       name: COOKIE_NAME,
@@ -52,7 +55,9 @@ const main = async (PORT: number) => {
     })
   );
 
+  // create the apollo server
   const apolloServer = new ApolloServer({
+    // build the schemas
     schema: await buildSchema({
       resolvers: [HelloResolver, UserResolver, WorkoutResolver],
       validate: false,
@@ -64,8 +69,10 @@ const main = async (PORT: number) => {
     }),
   });
 
+  // apply the middleware
   apolloServer.applyMiddleware({ app });
 
+  // listen on port provided
   app.listen(PORT, () => {
     console.log(`🚀 Server is starting on localhost:${PORT}`);
   });
