@@ -30,6 +30,9 @@ const main = async (PORT: number) => {
   // run the migrations
   await conn.runMigrations();
 
+  // delete if wanted
+  // await Workout.delete({});
+
   // init
   const app = express();
   const RedisStore = connectRedis(session);
