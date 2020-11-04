@@ -4,6 +4,24 @@ import { Field, InputType, ObjectType } from "type-graphql";
 import { User } from "./entities/User";
 
 @InputType()
+export class WorkoutInput {
+  @Field()
+  title: string;
+
+  @Field()
+  body: string;
+
+  @Field()
+  distance: number;
+
+  @Field()
+  private: boolean;
+
+  @Field()
+  notes: string;
+}
+
+@InputType()
 export class UsernamePasswordInput {
   // fields and types in username password input
   @Field()

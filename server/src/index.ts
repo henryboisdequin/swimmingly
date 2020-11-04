@@ -62,6 +62,7 @@ const main = async (PORT: number) => {
       resolvers: [HelloResolver, UserResolver, WorkoutResolver],
       validate: false,
     }),
+    // create context
     context: ({ req, res }) => ({
       req,
       res,
