@@ -5,9 +5,7 @@ import { DarkModeSwitch } from "./DarkModeSwitch";
 
 interface NavbarProps {}
 
-export const Navbar: React.FC<NavbarProps> = (
-  props: React.PropsWithChildren<NavbarProps>
-) => {
+export const Navbar: React.FC<NavbarProps> = () => {
   return (
     <Flex
       as="nav"
@@ -17,7 +15,6 @@ export const Navbar: React.FC<NavbarProps> = (
       padding="1.5rem"
       bg="teal.500"
       color="white"
-      {...props}
     >
       <Flex align="center" mr={5}>
         <NextLink href="/">
