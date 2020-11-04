@@ -10,6 +10,7 @@ Features:
 - Put notes on workout
 - Put URL of workout, the workout will show on the screen
 - Make workouts public (on the explore public workouts page)
+- Report workout, user
 
 Tech Stack:
 
