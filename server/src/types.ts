@@ -2,6 +2,16 @@ import { Request, Response } from "express";
 import { Redis } from "ioredis";
 import { Field, InputType, ObjectType } from "type-graphql";
 import { User } from "./entities/User";
+import { Workout } from "./entities/Workout";
+
+@ObjectType()
+export class PaginatedWorkouts {
+  @Field(() => [Workout])
+  workouts: Workout[];
+
+  @Field()
+  hasMore: boolean;
+}
 
 @InputType()
 export class WorkoutInput {

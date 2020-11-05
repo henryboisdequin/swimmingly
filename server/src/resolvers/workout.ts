@@ -10,7 +10,7 @@ import {
 import { getConnection } from "typeorm";
 import { Workout } from "../entities/Workout";
 import { isAuth } from "../middleware/isAuth";
-import { MyContext, WorkoutInput } from "../types";
+import { MyContext, PaginatedWorkouts, WorkoutInput } from "../types";
 
 @Resolver()
 export class WorkoutResolver {
@@ -19,11 +19,39 @@ export class WorkoutResolver {
     return Workout.findOne(id);
   }
 
-  @Query(() => [Workout], { nullable: true })
-  aUsersWorkouts(
+  @Query(() => PaginatedWorkouts)
+  async aUsersWorkouts(
+    @Arg("limit", () => Int) limit: number,
+    @Arg("cursor", () => String, { nullable: true }) cursor: string | null,
     @Arg("creatorId", () => Int) creatorId: number
-  ): Promise<Workout[] | undefined> {
-    return Workout.find({ where: { creatorId: creatorId } });
+  ): Promise<PaginatedWorkouts> {
+    const realLimit = Math.min(50, limit);
+    const reaLimitPlusOne = realLimit + 1;
+
+    const replacements: any[] = [reaLimitPlusOne];
+
+    if (cursor) {
+      replacements.push(new Date(parseInt(cursor)));
+    }
+
+    // const workouts = await Workout.find({ where: { creatorId: creatorId } });
+
+    const workouts = await getConnection().query(
+      `
+      select w.*
+      from workout w
+      ${cursor ? `where w."createdAt" < $2` : ""}
+      ${`where w."creatorId" = ${creatorId}`}
+      order by w."createdAt" DESC
+      limit $1
+      `,
+      replacements
+    );
+
+    return {
+      workouts: workouts.slice(0, realLimit),
+      hasMore: workouts.length === reaLimitPlusOne,
+    };
   }
 
   @Query(() => [Workout], { nullable: true })

@@ -44,7 +44,7 @@ export class Workout extends BaseEntity {
 
   @Field(() => User)
   @ManyToOne(() => User, (user) => user.workouts)
-  creator: User;
+  creator!: User;
 
   @Field(() => String)
   @CreateDateColumn()
