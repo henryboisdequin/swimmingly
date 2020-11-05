@@ -34,8 +34,6 @@ export class WorkoutResolver {
       replacements.push(new Date(parseInt(cursor)));
     }
 
-    // const workouts = await Workout.find({ where: { creatorId: creatorId } });
-
     const workouts = await getConnection().query(
       `
       select w.*
@@ -54,9 +52,36 @@ export class WorkoutResolver {
     };
   }
 
-  @Query(() => [Workout], { nullable: true })
-  allPublicWorkouts(): Promise<Workout[] | undefined> {
-    return Workout.find({ where: { private: false } });
+  @Query(() => PaginatedWorkouts)
+  async allPublicWorkouts(
+    @Arg("limit", () => Int) limit: number,
+    @Arg("cursor", () => String, { nullable: true }) cursor: string | null
+  ): Promise<PaginatedWorkouts> {
+    const realLimit = Math.min(50, limit);
+    const reaLimitPlusOne = realLimit + 1;
+
+    const replacements: any[] = [reaLimitPlusOne];
+
+    if (cursor) {
+      replacements.push(new Date(parseInt(cursor)));
+    }
+
+    const workouts = await getConnection().query(
+      `
+      select w.*
+      from workout w
+      ${cursor ? `where w."createdAt" < $2` : ""}
+      where w.private = false
+      order by w."createdAt" DESC
+      limit $1
+      `,
+      replacements
+    );
+
+    return {
+      workouts: workouts.slice(0, realLimit),
+      hasMore: workouts.length === reaLimitPlusOne,
+    };
   }
 
   @Mutation(() => Workout)
