@@ -11,6 +11,7 @@ Features:
 - Put URL of workout, the workout will show on the screen
 - Make workouts public (on the explore public workouts page)
 - Report workout, user
+- Cookie Banner
 
 Tech Stack:
 

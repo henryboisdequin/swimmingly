@@ -90,7 +90,10 @@ export class WorkoutResolver {
     @Arg("input") input: WorkoutInput,
     @Ctx() { req }: MyContext
   ): Promise<Workout> {
-    return Workout.create({ ...input, creatorId: req.session.userId }).save();
+    return Workout.create({
+      ...input,
+      creatorId: req.session.userId,
+    }).save();
   }
 
   @Mutation(() => Workout, { nullable: true })
