@@ -8,17 +8,16 @@ import path from "path";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import { createConnection } from "typeorm";
-import { COOKIE_NAME, SESSION_SECRET, __prod__ } from "./constants";
+import { COOKIE_NAME, db, SESSION_SECRET, __prod__ } from "./constants";
 import { User } from "./entities/User";
 import { Workout } from "./entities/Workout";
 import { HelloResolver } from "./resolvers/hello";
 import { UserResolver } from "./resolvers/user";
 import { WorkoutResolver } from "./resolvers/workout";
+import { createUserLoader } from "./utils/createUserLoader";
 
 const main = async (PORT: number) => {
   // create connection to postgres db
-  const db = "swimminglydb";
-
   const conn = await createConnection({
     type: "postgres",
     database: db,
@@ -34,7 +33,7 @@ const main = async (PORT: number) => {
   await conn.runMigrations();
 
   // delete if wanted
-  // await User.delete({});
+  // await Workout.delete({});
 
   // init
   const app = express();
@@ -81,6 +80,7 @@ const main = async (PORT: number) => {
       req,
       res,
       redis,
+      userLoader: createUserLoader(),
     }),
   });
 

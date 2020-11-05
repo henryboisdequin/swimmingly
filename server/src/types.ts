@@ -3,6 +3,7 @@ import { Redis } from "ioredis";
 import { Field, InputType, ObjectType } from "type-graphql";
 import { User } from "./entities/User";
 import { Workout } from "./entities/Workout";
+import { createUserLoader } from "./utils/createUserLoader";
 
 @ObjectType()
 export class PaginatedWorkouts {
@@ -68,4 +69,5 @@ export type MyContext = {
   req: Request & { session: Express.Session };
   res: Response;
   redis: Redis;
+  userLoader: ReturnType<typeof createUserLoader>;
 };

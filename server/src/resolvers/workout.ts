@@ -1,10 +1,12 @@
 import {
   Arg,
   Ctx,
+  FieldResolver,
   Int,
   Mutation,
   Query,
   Resolver,
+  Root,
   UseMiddleware,
 } from "type-graphql";
 import { getConnection } from "typeorm";
@@ -12,11 +14,16 @@ import { Workout } from "../entities/Workout";
 import { isAuth } from "../middleware/isAuth";
 import { MyContext, PaginatedWorkouts, WorkoutInput } from "../types";
 
-@Resolver()
+@Resolver(Workout)
 export class WorkoutResolver {
   @Query(() => Workout, { nullable: true })
   workout(@Arg("id", () => Int) id: number): Promise<Workout | undefined> {
     return Workout.findOne(id);
+  }
+
+  @FieldResolver(() => Workout)
+  creator(@Root() workout: Workout, @Ctx() { userLoader }: MyContext) {
+    return userLoader.load(workout.creatorId);
   }
 
   @Query(() => PaginatedWorkouts)
