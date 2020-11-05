@@ -43,7 +43,7 @@ export class Workout extends BaseEntity {
   creatorId: number;
 
   @Field(() => User)
-  @ManyToOne(() => User, (user) => user.workouts)
+  @ManyToOne(() => User, (user) => user.workouts, { onDelete: "CASCADE" })
   creator!: User;
 
   @Field(() => String)

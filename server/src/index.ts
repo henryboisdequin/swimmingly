@@ -17,11 +17,13 @@ import { WorkoutResolver } from "./resolvers/workout";
 
 const main = async (PORT: number) => {
   // create connection to postgres db
+  const db = "swimminglydb";
+
   const conn = await createConnection({
     type: "postgres",
-    database: process.env.DATABASE_NAME as string,
-    username: process.env.DATABASE_USERNAME as string,
-    password: process.env.DATABASE_PASSWORD as string,
+    database: db,
+    username: "postgres",
+    password: "postgres",
     logging: true,
     synchronize: true,
     migrations: [path.join(__dirname, "./migrations/*")],
@@ -32,7 +34,7 @@ const main = async (PORT: number) => {
   await conn.runMigrations();
 
   // delete if wanted
-  // await Workout.delete({});
+  // await User.delete({});
 
   // init
   const app = express();
