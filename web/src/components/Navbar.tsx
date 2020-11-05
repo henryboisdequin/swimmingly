@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Link } from "@chakra-ui/core";
+import { Box, Flex, Heading, Link, Text } from "@chakra-ui/core";
 import NextLink from "next/link";
 import React from "react";
 import { DarkModeSwitch } from "./DarkModeSwitch";
@@ -27,6 +27,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
       </Flex>
 
       <Box display={{ sm: "none", md: "block" }} mt={{ base: 4, md: 0 }}>
+        <Text>Logged in as ____</Text>
         <DarkModeSwitch />
       </Box>
     </Flex>

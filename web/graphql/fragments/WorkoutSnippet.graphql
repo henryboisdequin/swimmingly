@@ -1,0 +1,14 @@
+fragment WorkoutSnippet on Workout {
+  id
+  createdAt
+  updatedAt
+  title
+  body
+  private
+  distance
+  notes
+  creator {
+    username
+    id
+  }
+}
