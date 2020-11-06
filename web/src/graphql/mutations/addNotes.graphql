@@ -1,0 +1,5 @@
+mutation AddNotes($id: Int!, $notes: String!) {
+  addNotes(id: $id, notes: $notes) {
+    ...WorkoutSnippet
+  }
+}

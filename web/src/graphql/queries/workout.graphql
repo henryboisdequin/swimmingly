@@ -1,0 +1,5 @@
+query Workout($id: Int!) {
+  workout(id: $id) {
+    ...WorkoutSnippet
+  }
+}

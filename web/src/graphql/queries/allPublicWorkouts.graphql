@@ -1,0 +1,6 @@
+query allPublicWorkouts($cursor: String, $limit: Int!) {
+  allPublicWorkouts(cursor: $cursor, limit: $limit) {
+    ...WorkoutSnippet
+    hasMore
+  }
+}

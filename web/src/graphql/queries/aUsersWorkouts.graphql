@@ -1,0 +1,6 @@
+query aUsersWorkouts($creatorId: Int!, $cursor: String, $limit: Int!) {
+  aUsersWorkouts(creatorId: $creatorId, cursor: $cursor, limit: $limit) {
+    ...WorkoutSnippet
+    hasMore
+  }
+}
