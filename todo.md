@@ -1,0 +1,5 @@
+- More in depth workout (individual page for workout)
+- Show private workouts
+- Report workout, user
+- Cookie Banner
+- Deploy

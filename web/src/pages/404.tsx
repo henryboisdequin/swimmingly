@@ -3,6 +3,7 @@ import NextLink from "next/link";
 import React from "react";
 import { Container } from "../components/Container";
 import { Navbar } from "../components/Navbar";
+import { withApollo } from "../utils/withApollo";
 
 interface ErrorPageProps {}
 
@@ -18,7 +19,7 @@ const ErrorPage: React.FC<ErrorPageProps> = ({}) => {
           padding={20}
         >
           <Text fontSize={60} textAlign="center" fontWeight="bold">
-            You are lost!
+            You are lost, swimming into the deeps of Swimmingly!
           </Text>
           <NextLink href="/">
             <Link>
@@ -34,4 +35,4 @@ const ErrorPage: React.FC<ErrorPageProps> = ({}) => {
   );
 };
 
-export default ErrorPage;
+export default withApollo({ ssr: false })(ErrorPage);
