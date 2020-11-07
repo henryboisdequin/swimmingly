@@ -1,11 +1,9 @@
 import * as Apollo from "@apollo/client";
 import { gql } from "@apollo/client";
-
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
 };
-
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -53,7 +51,7 @@ export type Workout = {
   id: Scalars["Float"];
   title: Scalars["String"];
   body: Scalars["String"];
-  distance: Scalars["Int"];
+  distance: Scalars["String"];
   private: Scalars["Boolean"];
   notes: Scalars["String"];
   creatorId: Scalars["Float"];
@@ -126,7 +124,7 @@ export type UsernamePasswordInput = {
 export type WorkoutInput = {
   title: Scalars["String"];
   body: Scalars["String"];
-  distance: Scalars["Float"];
+  distance: Scalars["String"];
   private: Scalars["Boolean"];
   notes: Scalars["String"];
 };
@@ -662,7 +660,7 @@ export const AUsersWorkoutsDocument = gql`
  * });
  */
 export function useAUsersWorkoutsQuery(
-  baseOptions?: Apollo.QueryHookOptions<
+  baseOptions: Apollo.QueryHookOptions<
     AUsersWorkoutsQuery,
     AUsersWorkoutsQueryVariables
   >
@@ -723,7 +721,7 @@ export const AllPublicWorkoutsDocument = gql`
  * });
  */
 export function useAllPublicWorkoutsQuery(
-  baseOptions?: Apollo.QueryHookOptions<
+  baseOptions: Apollo.QueryHookOptions<
     AllPublicWorkoutsQuery,
     AllPublicWorkoutsQueryVariables
   >
@@ -820,7 +818,7 @@ export const WorkoutDocument = gql`
  * });
  */
 export function useWorkoutQuery(
-  baseOptions?: Apollo.QueryHookOptions<WorkoutQuery, WorkoutQueryVariables>
+  baseOptions: Apollo.QueryHookOptions<WorkoutQuery, WorkoutQueryVariables>
 ) {
   return Apollo.useQuery<WorkoutQuery, WorkoutQueryVariables>(
     WorkoutDocument,

@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType } from "type-graphql";
+import { Field, ObjectType } from "type-graphql";
 import {
   BaseEntity,
   Column,
@@ -26,9 +26,9 @@ export class Workout extends BaseEntity {
   @Column()
   body!: string;
 
-  @Field(() => Int)
+  @Field()
   @Column()
-  distance!: number;
+  distance!: string;
 
   @Field(() => Boolean)
   @Column()

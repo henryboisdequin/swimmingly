@@ -23,7 +23,7 @@ export class WorkoutInput {
   body: string;
 
   @Field()
-  distance: number;
+  distance: string;
 
   @Field()
   private: boolean;

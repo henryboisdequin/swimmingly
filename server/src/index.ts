@@ -30,10 +30,10 @@ const main = async (PORT: number) => {
   });
 
   // run the migrations
-  await conn.runMigrations();
+  // await conn.runMigrations();
 
   // delete if wanted
-  // await Workout.delete({});
+  await Workout.delete({});
 
   // init
   const app = express();
@@ -41,6 +41,7 @@ const main = async (PORT: number) => {
   const redis = new Redis();
 
   // set app settings
+  app.set("trust proxy", 1);
 
   app.use(
     cors({
