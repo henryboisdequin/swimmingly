@@ -1,5 +1,6 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { NextPageContext } from "next";
+import { PaginatedWorkouts } from "../generated/graphql";
 import { createWithApollo } from "./createWithApollo";
 
 const createClient = (ctx: NextPageContext) =>
@@ -12,27 +13,29 @@ const createClient = (ctx: NextPageContext) =>
           ? ctx?.req?.headers.cookie
           : undefined) || "",
     },
-    cache: new InMemoryCache(),
-    // cache: new InMemoryCache({
-    //   typePolicies: {
-    //     Query: {
-    //       fields: {
-    //         posts: {
-    //           keyArgs: [],
-    //           merge(
-    //             existing: PaginatedPosts | undefined,
-    //             incoming: PaginatedPosts
-    //           ): PaginatedPosts {
-    //             return {
-    //               ...incoming,
-    //               posts: [...(existing?.posts || []), ...incoming.posts],
-    //             };
-    //           },
-    //         },
-    //       },
-    //     },
-    //   },
-    // }),
+    cache: new InMemoryCache({
+      typePolicies: {
+        Query: {
+          fields: {
+            workout: {
+              keyArgs: [],
+              merge(
+                existing: PaginatedWorkouts | undefined,
+                incoming: PaginatedWorkouts
+              ): PaginatedWorkouts {
+                return {
+                  ...incoming,
+                  workouts: [
+                    ...(existing?.workouts || []),
+                    ...incoming.workouts,
+                  ],
+                };
+              },
+            },
+          },
+        },
+      },
+    }),
   });
 
 export const withApollo = createWithApollo(createClient);

@@ -73,9 +73,9 @@ export const Navbar: React.FC<NavbarProps> = ({}) => {
     <Flex zIndex={1} position="sticky" top={0} bg="teal.500" p={4}>
       <Flex flex={1} m="auto" align="center">
         <NextLink href="/">
-          <Link>
-            <Heading color="white">Swimmingly</Heading>
-          </Link>
+          <Heading as={Link} color="white">
+            Swimmingly
+          </Heading>
         </NextLink>
         <Box ml={"auto"}>{body}</Box>
       </Flex>
