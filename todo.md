@@ -1,5 +1,7 @@
 - More in depth workout (individual page for workout)
+- Fix post reload/load more bug
 - Show private workouts
-- Report workout, user
 - Cookie Banner
+- Report workout, user
+- Testing
 - Deploy

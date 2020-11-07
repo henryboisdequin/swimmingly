@@ -21,7 +21,7 @@ export const Workout: React.FC<WorkoutProps> = ({ workout, meData }) => {
             {workout.title}
           </Heading>
         </NextLink>
-        <Text>Posted By {workout.creator.username}</Text>
+        <Text>By {workout.creator.username}</Text>
         <Flex align="center">
           <Text flex={1} mt={4}>
             {workout.body}

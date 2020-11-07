@@ -19,7 +19,7 @@ const ErrorPage: React.FC<ErrorPageProps> = ({}) => {
           padding={20}
         >
           <Text fontSize={60} textAlign="center" fontWeight="bold">
-            You are lost, swimming into the deeps of Swimmingly!
+            You are lost, swimming in the depths of Swimmingly!
           </Text>
           <NextLink href="/">
             <Link>
