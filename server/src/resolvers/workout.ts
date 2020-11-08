@@ -46,7 +46,11 @@ export class WorkoutResolver {
       select w.*
       from workout w
       ${cursor ? `where w."createdAt" < $2` : ""}
-      ${`where w."creatorId" = ${creatorId}`}
+      ${
+        cursor
+          ? `and w."creatorId" = ${creatorId}`
+          : `where w."creatorId" = ${creatorId}`
+      }
       order by w."createdAt" DESC
       limit $1
       `,
@@ -78,7 +82,7 @@ export class WorkoutResolver {
       select w.*
       from workout w
       ${cursor ? `where w."createdAt" < $2` : ""}
-      where w.private = false
+      ${cursor ? "and w.private = false" : "where w.private = false"}
       order by w."createdAt" DESC
       limit $1
       `,

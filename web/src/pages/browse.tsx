@@ -24,7 +24,7 @@ const Browse: React.FC<BrowseProps> = ({}) => {
     fetchMore,
     variables,
   } = useAllPublicWorkoutsQuery({
-    variables: { limit: 15, cursor: null },
+    variables: { limit: 3, cursor: null },
     notifyOnNetworkStatusChange: true,
   });
   const { data: meData } = useMeQuery();
@@ -63,7 +63,7 @@ const Browse: React.FC<BrowseProps> = ({}) => {
             onClick={() => {
               fetchMore({
                 variables: {
-                  limit: variables?.limit,
+                  limit: variables.limit,
                   cursor:
                     data.allPublicWorkouts.workouts[
                       data.allPublicWorkouts.workouts.length - 1
