@@ -1,15 +1,8 @@
-import {
-  Alert,
-  AlertDescription,
-  AlertIcon,
-  AlertTitle,
-  Button,
-  CircularProgress,
-  Flex,
-  Stack,
-} from "@chakra-ui/core";
+import { Button, Flex, Stack } from "@chakra-ui/core";
 import React from "react";
+import { Error } from "../components/Error";
 import { Layout } from "../components/Layout";
+import { Loading } from "../components/Loading";
 import { Workout } from "../components/Workout";
 import {
   AllPublicWorkoutsQuery,
@@ -34,26 +27,13 @@ const Browse: React.FC<BrowseProps> = ({}) => {
   const { data: meData } = useMeQuery();
 
   if (!loading && !data) {
-    return (
-      <Alert status="error">
-        <AlertIcon />
-        <AlertTitle mr={2}>Error</AlertTitle>
-        <AlertDescription>{error?.message}</AlertDescription>
-      </Alert>
-    );
+    return <Error error={error} />;
   }
 
   return (
     <Layout>
       {!data && loading ? (
-        <Flex
-          justifyContent="center"
-          alignItems="center"
-          width="100vw"
-          height="100vh"
-        >
-          <CircularProgress isIndeterminate size="120px" />
-        </Flex>
+        <Loading />
       ) : (
         <Stack spacing={8}>
           {data!.allPublicWorkouts.workouts.map((w) => {

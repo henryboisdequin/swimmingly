@@ -1,14 +1,8 @@
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Flex,
-  Link,
-  Text,
-} from "@chakra-ui/core";
+import { Box, Button, Flex, Link, Text } from "@chakra-ui/core";
 import NextLink from "next/link";
 import React from "react";
 import { Layout } from "../components/Layout";
+import { Loading } from "../components/Loading";
 import { useMeQuery } from "../generated/graphql";
 import { withApollo } from "../utils/withApollo";
 
@@ -16,16 +10,7 @@ const Index = () => {
   const { data, loading } = useMeQuery();
 
   if (loading) {
-    return (
-      <Flex
-        justifyContent="center"
-        alignItems="center"
-        width="100vw"
-        height="100vh"
-      >
-        <CircularProgress isIndeterminate size="120px" />
-      </Flex>
-    );
+    return <Loading />;
   }
 
   let buttons: JSX.Element;
