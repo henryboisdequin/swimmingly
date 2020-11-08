@@ -21,7 +21,7 @@ const Browse: React.FC<BrowseProps> = ({}) => {
     fetchMore,
     variables,
   } = useAllPublicWorkoutsQuery({
-    variables: { limit: 3, cursor: null },
+    variables: { limit: 15, cursor: null },
     notifyOnNetworkStatusChange: true,
   });
   const { data: meData } = useMeQuery();

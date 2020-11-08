@@ -35,6 +35,26 @@ const Index = () => {
         </Flex>
       </Box>
     );
+  } else {
+    buttons = (
+      <Box mt={10}>
+        <Flex justifyContent="center" alignItems="center">
+          <NextLink href="/login">
+            <Button as={Link}>Create a Workout</Button>
+          </NextLink>
+          <NextLink href="/browse">
+            <Box ml={4}>
+              <Button as={Link}>Browse Public Workouts</Button>
+            </Box>
+          </NextLink>
+          <NextLink href={`/login`}>
+            <Box ml={4}>
+              <Button as={Link}>Browse Your Workouts</Button>
+            </Box>
+          </NextLink>
+        </Flex>
+      </Box>
+    );
   }
 
   return (
