@@ -11,7 +11,11 @@ import {
 import React from "react";
 import { Layout } from "../components/Layout";
 import { Workout } from "../components/Workout";
-import { useAllPublicWorkoutsQuery, useMeQuery } from "../generated/graphql";
+import {
+  AllPublicWorkoutsQuery,
+  useAllPublicWorkoutsQuery,
+  useMeQuery,
+} from "../generated/graphql";
 import { withApollo } from "../utils/withApollo";
 
 interface BrowseProps {}
@@ -68,6 +72,29 @@ const Browse: React.FC<BrowseProps> = ({}) => {
                     data.allPublicWorkouts.workouts[
                       data.allPublicWorkouts.workouts.length - 1
                     ].createdAt,
+                },
+                updateQuery: (
+                  previousValue,
+                  { fetchMoreResult }
+                ): AllPublicWorkoutsQuery => {
+                  if (!fetchMoreResult) {
+                    return previousValue as AllPublicWorkoutsQuery;
+                  }
+
+                  return {
+                    __typename: "Query",
+                    allPublicWorkouts: {
+                      __typename: "PaginatedWorkouts",
+                      hasMore: (fetchMoreResult as AllPublicWorkoutsQuery)
+                        .allPublicWorkouts.hasMore,
+                      workouts: [
+                        ...(previousValue as AllPublicWorkoutsQuery)
+                          .allPublicWorkouts.workouts,
+                        ...(fetchMoreResult as AllPublicWorkoutsQuery)
+                          .allPublicWorkouts.workouts,
+                      ],
+                    },
+                  };
                 },
               });
             }}

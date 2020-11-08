@@ -25,7 +25,7 @@ const ErrorPage: React.FC<ErrorPageProps> = ({}) => {
             <Link>
               <Text textAlign="center">
                 <Icon name="arrow-forward"></Icon>
-                Go back to home
+                Go back home
               </Text>
             </Link>
           </NextLink>

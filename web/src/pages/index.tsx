@@ -42,7 +42,7 @@ const Index = () => {
               <Button as={Link}>Browse Public Workouts</Button>
             </Box>
           </NextLink>
-          <NextLink href={`/browse/${data.me!.username}`}>
+          <NextLink href={`/dashboard/${data.me!.username}`}>
             <Box ml={4}>
               <Button as={Link}>Browse Your Workouts</Button>
             </Box>
