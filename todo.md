@@ -1,4 +1,4 @@
-- Cookie Banner
-- Report workout, user
 - Testing
 - Deploy
+  - Frontend Vercel
+  - Backend Docker Container

@@ -37,7 +37,7 @@ const Create: React.FC<{}> = ({}) => {
 
           if (!errors) {
             // if worked
-            router.push("/browse");
+            router.back();
           }
         }}
       >
