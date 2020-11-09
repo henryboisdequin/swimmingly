@@ -15,7 +15,7 @@ const Index = () => {
 
   let buttons: JSX.Element;
 
-  if (data.me) {
+  if (data?.me) {
     buttons = (
       <Box mt={10}>
         <Flex justifyContent="center" alignItems="center">

@@ -33,7 +33,7 @@ const main = async (PORT: number) => {
   // await conn.runMigrations();
 
   // delete if wanted
-  await Workout.delete({});
+  // await Workout.delete({});
 
   // init
   const app = express();

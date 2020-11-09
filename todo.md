@@ -1,6 +1,5 @@
-- More in depth workout (individual page for workout)
-- Fix post reload/load more bug
-- Show private workouts
+- Show private workouts in dashboard
+- Fix post reload bug
 - Cookie Banner
 - Report workout, user
 - Testing

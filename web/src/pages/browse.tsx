@@ -37,7 +37,9 @@ const Browse: React.FC<BrowseProps> = ({}) => {
       ) : (
         <Stack spacing={8}>
           {data!.allPublicWorkouts.workouts.map((w) => {
-            return !w ? null : <Workout meData={meData} workout={w} />;
+            return !w ? null : (
+              <Workout key={w.id} meData={meData} workout={w} />
+            );
           })}
         </Stack>
       )}
