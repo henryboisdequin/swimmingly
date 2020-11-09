@@ -51,7 +51,7 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
           <Heading>{urlUsername}'s Dashboard</Heading>
           {data!.aUsersWorkouts.workouts.map((w) => {
             return !w ? null : (
-              <Workout key={w.id} meData={meData} workout={w} />
+              <Workout addNotes={true} key={w.id} meData={meData} workout={w} />
             );
           })}
         </Stack>

@@ -1,4 +1,12 @@
-import { Box, Flex, Heading, Icon, Link, Text } from "@chakra-ui/core";
+import {
+  Box,
+  Flex,
+  Heading,
+  Icon,
+  IconButton,
+  Link,
+  Text,
+} from "@chakra-ui/core";
 import moment from "moment";
 import NextLink from "next/link";
 import React from "react";
@@ -7,15 +15,23 @@ import { MeQuery, WorkoutSnippetFragment } from "../generated/graphql";
 interface WorkoutProps {
   meData: MeQuery | undefined;
   workout: WorkoutSnippetFragment;
+  addNotes?: boolean;
 }
 
-export const Workout: React.FC<WorkoutProps> = ({ workout, meData }) => {
+export const Workout: React.FC<WorkoutProps> = ({
+  workout,
+  meData,
+  addNotes,
+}) => {
+  const regularHref = meData?.me?.id ? "/workout/[id]" : "/login";
+  const regularAs = meData?.me?.id ? `/workout/${workout.id}` : "/login";
+
   return (
     <Flex key={workout.id} p={5} shadow="md" borderWidth="1px" minWidth={400}>
       <Box flex={1}>
         <NextLink
-          href={meData?.me?.id ? "/workout/[id]" : "/login"}
-          as={meData?.me?.id ? `/workout/${workout.id}` : "/login"}
+          href={!addNotes ? regularHref : "/workout/add-notes/[id]"}
+          as={!addNotes ? regularAs : `/workout/add-notes/${workout.id}`}
         >
           <Heading fontSize="xl" as={Link}>
             {workout.title}
@@ -33,6 +49,19 @@ export const Workout: React.FC<WorkoutProps> = ({ workout, meData }) => {
             <Flex justifyContent="center" alignItems="center">
               <Icon name="calendar" aria-label="Calender" mr={1} />
               <Text>{moment().calendar(workout.createdAt)}</Text>
+              {!addNotes ? null : (
+                <NextLink
+                  href="/workout/add-notes/[id]"
+                  as={`/workout/add-notes/${workout.id}`}
+                >
+                  <IconButton
+                    as={Link}
+                    icon="add"
+                    aria-label="Add Notes"
+                    ml={5}
+                  />
+                </NextLink>
+              )}
             </Flex>
           </Box>
         </Flex>
