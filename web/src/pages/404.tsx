@@ -2,7 +2,7 @@ import { Box, Icon, Link, Text, useColorMode } from "@chakra-ui/core";
 import NextLink from "next/link";
 import React from "react";
 import { Container } from "../components/Container";
-import { Navbar } from "../components/Navbar";
+import { Layout } from "../components/Layout";
 import { withApollo } from "../utils/withApollo";
 
 interface ErrorPageProps {}
@@ -10,8 +10,7 @@ interface ErrorPageProps {}
 const ErrorPage: React.FC<ErrorPageProps> = ({}) => {
   const { colorMode } = useColorMode();
   return (
-    <>
-      <Navbar />
+    <Layout>
       <Container>
         <Box
           border="2px"
@@ -31,7 +30,7 @@ const ErrorPage: React.FC<ErrorPageProps> = ({}) => {
           </NextLink>
         </Box>
       </Container>
-    </>
+    </Layout>
   );
 };
 

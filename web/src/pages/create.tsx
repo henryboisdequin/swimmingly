@@ -28,7 +28,7 @@ const Create: React.FC<{}> = ({}) => {
           const { errors } = await createWorkout({
             variables: { input: values },
             update: (cache) => {
-              cache.evict({ fieldName: "workout:{}" });
+              cache.evict({ fieldName: "workouts:{}" });
             },
           });
 

@@ -1,5 +1,4 @@
 - Show private workouts in dashboard
-- Fix post reload bug
 - Cookie Banner
 - Report workout, user
 - Testing
