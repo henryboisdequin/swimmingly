@@ -81,7 +81,11 @@ export const Workout: React.FC<WorkoutProps> = ({
                       <ModalHeader>{workout.title}'s Notes</ModalHeader>
                       <ModalCloseButton />
                       <ModalBody>
-                        <Text>{workout.notes}</Text>
+                        <Text>
+                          {workout.notes !== ""
+                            ? workout.notes
+                            : "Hmmm, nothing yet. Add some notes!"}
+                        </Text>
                       </ModalBody>
 
                       <ModalFooter>

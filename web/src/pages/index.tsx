@@ -1,6 +1,7 @@
 import { Box, Button, Flex, Link, Text } from "@chakra-ui/core";
 import NextLink from "next/link";
 import React from "react";
+import CookieConsent from "react-cookie-consent";
 import { Layout } from "../components/Layout";
 import { Loading } from "../components/Loading";
 import { useMeQuery } from "../generated/graphql";
@@ -65,6 +66,17 @@ const Index = () => {
         publicly, the choice is yours!
       </Text>
       {buttons}
+      <CookieConsent
+        style={{ background: "teal" }}
+        buttonStyle={{
+          backgroundColor: "lightblue",
+          color: "teal",
+          borderRadius: 10,
+        }}
+        buttonText="I understand"
+      >
+        Swimmingly uses cookies to enhance the users experience. Yum!
+      </CookieConsent>
     </Layout>
   );
 };
