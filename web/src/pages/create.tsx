@@ -25,8 +25,11 @@ const Create: React.FC<{}> = ({}) => {
           notes: "",
         }}
         onSubmit={async (values) => {
+          const updatedValues = values;
+          updatedValues.private = isPrivate;
+
           const { errors } = await createWorkout({
-            variables: { input: values },
+            variables: { input: updatedValues },
             update: (cache) => {
               cache.evict({ fieldName: "workouts:{}" });
             },

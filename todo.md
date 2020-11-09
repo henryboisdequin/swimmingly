@@ -1,4 +1,4 @@
-- Show private workouts in dashboard
+- Show a users workouts (public + private) in dashboard
 - Cookie Banner
 - Report workout, user
 - Testing

@@ -103,12 +103,6 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
       ) : null}
     </Layout>
   );
-
-  // return (
-  //   <Layout>
-  //     <Heading>{urlUsername}'s Dashboard</Heading>
-  //   </Layout>
-  // );
 };
 
 export default withApollo({ ssr: true })(Dashboard);
