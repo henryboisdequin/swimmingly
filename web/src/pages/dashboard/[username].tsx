@@ -50,8 +50,17 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
         <Stack spacing={8}>
           <Heading>{urlUsername}'s Dashboard</Heading>
           {data!.aUsersWorkouts.workouts.map((w) => {
+            console.log(w);
+
             return !w ? null : (
-              <Workout addNotes={true} key={w.id} meData={meData} workout={w} />
+              <>
+                <Workout
+                  addNotes={true}
+                  key={w.id}
+                  meData={meData}
+                  workout={w}
+                />
+              </>
             );
           })}
         </Stack>
