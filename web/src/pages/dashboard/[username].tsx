@@ -42,6 +42,10 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
     return <Error error={error} />;
   }
 
+  if (!data && loading) {
+    return <Loading />;
+  }
+
   return (
     <Layout>
       {!data && loading ? (

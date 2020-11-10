@@ -30,6 +30,10 @@ const Browse: React.FC<BrowseProps> = ({}) => {
     return <Error error={error} />;
   }
 
+  if (!data && loading) {
+    return <Loading />;
+  }
+
   return (
     <Layout>
       {!data && loading ? (

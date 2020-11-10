@@ -1,4 +1,5 @@
 import { Box, Button, Flex, Link, Text } from "@chakra-ui/core";
+import Head from "next/head";
 import NextLink from "next/link";
 import React from "react";
 import CookieConsent from "react-cookie-consent";
@@ -60,6 +61,9 @@ const Index = () => {
 
   return (
     <Layout>
+      <Head>
+        <title>Swimmingly</title>
+      </Head>
       <Text fontSize="20px">
         Swimmingly is a platform for coaches and swimmers alike to share and
         keep track of their swimming workouts. Post a workout privately, or
